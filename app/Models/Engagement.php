@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Engagement extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'dispatch_id',
+        'dispatch_number',
         'address',
         'unit',
         'verticles',
@@ -22,9 +23,9 @@ class Engagement extends Model
         'eend_date'
     ];
 
-    public function dispatch()
+    public function issues()
     {
-        return $this->belongsTo(DispatchNumber::class, 'dispatch_id');
+        return $this->hasMany(Issue::class, 'engagement_id');
     }
 
 

@@ -24,8 +24,7 @@ class EngagementResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('dispatch_id')
-                ->disabled()
+                Forms\Components\TextInput::make('dispatch_number')
                 ->label("Dispatch Number"),
                 Forms\Components\TextInput::make('address')
                     ->maxLength(255),
@@ -48,8 +47,8 @@ class EngagementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('dispatch_id'),
-                Tables\Columns\TextColumn::make('address'),
+                Tables\Columns\TextColumn::make('dispatch_number')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('address')->searchable(),
                 Tables\Columns\TextColumn::make('unit'),
                 Tables\Columns\TextColumn::make('verticles'),
                 Tables\Columns\TextColumn::make('letter'),
@@ -68,10 +67,11 @@ class EngagementResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
-                //
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -81,7 +81,7 @@ class EngagementResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\IssuesRelationManager::class,
         ];
     }
     
