@@ -9,6 +9,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
 
 class IssuesRelationManager extends RelationManager
 {
@@ -61,7 +62,11 @@ class IssuesRelationManager extends RelationManager
             //     ->dateTime(),
         ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                ->options([
+                    "Pending" => 'Pending',
+                    "Solved" => 'Solved',
+                ])
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
