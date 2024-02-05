@@ -25,4 +25,10 @@ class Issue extends Model
         return $this->belongsTo(Engagement::class, 'engagement_id');
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class, 'issue_id');
+    }
+
+
 }

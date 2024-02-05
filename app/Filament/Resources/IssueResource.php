@@ -3,7 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\IssueResource\Pages;
-use App\Filament\Resources\IssueResource\RelationManagers;
+// use App\Filament\Resources\IssueResource\RelationManagers;
+use App\Filament\Resources\IssuesRelationManagerResource\RelationManagers;
 use App\Models\Issue;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -23,25 +24,30 @@ class IssueResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('engagement_id')
-                    ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->maxLength(65535),
-                Forms\Components\Textarea::make('remarks')
-                    ->maxLength(65535),
-                Forms\Components\TextInput::make('risk_type')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('issue_type')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                // Forms\Components\TextInput::make('engagement_id')
+                //     ->hidden()
+                //     ->required(),
+                // Forms\Components\TextInput::make('title')
+                //     ->required()
+                  
+                //     ->maxLength(255),
+                // Forms\Components\Textarea::make('description')
+                //     ->required()
+                //     ->maxLength(65535),
+                // Forms\Components\Textarea::make('remarks')
+                //     ->maxLength(65535),
+                // Forms\Components\TextInput::make('risk_type')
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\TextInput::make('issue_type')
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\Select::make('status')
+                //     ->options([
+                //         'Pending' => 'Pending',
+                //         'Solved' => 'Solved'
+                //     ])
+                //     ->required(),
             ]);
     }
 
@@ -49,7 +55,7 @@ class IssueResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('engagement_id'),
+                Tables\Columns\TextColumn::make('engagement.dispatch_number'),
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('remarks'),
@@ -64,9 +70,9 @@ class IssueResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+            // ->actions([
+            //     Tables\Actions\EditAction::make(),
+            // ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
@@ -75,7 +81,7 @@ class IssueResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ResponsesRelationManager::class,
         ];
     }
     

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EngagementResource\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\IssuesRelationManagerResource\RelationManagers;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
@@ -83,8 +84,16 @@ class IssuesRelationManager extends RelationManager
     public static function getRelations(): array
     {
         return [
-            // RelationManagers\IssuesRelationManager::class,
+            RelationManagers\ResponsesRelationManager::class,
         ];
     }
     
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListIssues::route('/'),
+            'create' => Pages\CreateIssue::route('/create'),
+            'edit' => Pages\EditIssue::route('/{record}/edit'),
+        ];
+    }  
 }
