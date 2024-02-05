@@ -78,5 +78,13 @@ class IssuesRelationManager extends RelationManager
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }   
+    
+    public static function getRelations(): array
+    {
+        return [
+            // RelationManagers\IssuesRelationManager::class,
+        ];
+    }
+    
 }

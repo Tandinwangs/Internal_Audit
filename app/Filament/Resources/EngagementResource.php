@@ -14,6 +14,10 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Blade;
+use Filament\Tables\Actions\Action;
+
 
 class EngagementResource extends Resource
 {
@@ -44,6 +48,8 @@ class EngagementResource extends Resource
             ]);
     }
 
+
+
     public static function table(Table $table): Table
     {
         return $table
@@ -62,6 +68,10 @@ class EngagementResource extends Resource
                     ->date(),
                 Tables\Columns\TextColumn::make('eend_date')
                     ->date(),
+                // Tables\Columns\TextColumn::make('github_url')
+                // ->formatStateUsing(
+                //     fn (string $state) => self::goTo($state, 'See External Resource'),
+                // )
                 // Tables\Columns\TextColumn::make('created_at')
                 //     ->dateTime(),
                 // Tables\Columns\TextColumn::make('updated_at')
@@ -73,6 +83,8 @@ class EngagementResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Action::make('Approve')
+                ->action(fn (Encagement $record) => EngagementResource::ApproveLeave($record))
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -93,5 +105,9 @@ class EngagementResource extends Resource
             'create' => Pages\CreateEngagement::route('/create'),
             'edit' => Pages\EditEngagement::route('/{record}/edit'),
         ];
-    }    
+    }   
+    
+    public static function ApproveLeave($record) {
+        return dd($record);
+    }
 }
